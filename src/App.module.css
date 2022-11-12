@@ -1,0 +1,25 @@
+body {
+  font-family: Arial, serif;
+}
+
+.Layout {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50rem;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.border {
+  border-radius: 1px;
+  border: 3px solid;
+  padding: 5px;
+}
+
+.error {
+  color: red;
+}
+
+a:hover {
+  cursor: pointer;
+}
