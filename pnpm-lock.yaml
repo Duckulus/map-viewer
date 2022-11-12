@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/node': ^18.11.9
   fflate: ^0.7.4
   nbt: ^0.8.1
   solid-js: ^1.5.1
@@ -16,6 +17,7 @@ dependencies:
   zip-lib: 0.7.3
 
 devDependencies:
+  '@types/node': 18.11.9
   typescript: 4.8.2
   vite: 3.0.9
   vite-plugin-solid: 2.3.0_solid-js@1.5.1+vite@3.0.9
@@ -374,6 +376,10 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
+
+  /@types/node/18.11.9:
+    resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
     dev: true
 
   /ansi-styles/3.2.1:
