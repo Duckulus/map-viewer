@@ -43,31 +43,34 @@ const App: Component = () => {
     <div class={styles.Layout}>
       <NavBar/>
       <div class={styles.border}>
-        <h3>Upload your World File</h3>
         <form onSubmit={async e => await handleFileUpload(e)}>
-          <input ref={fileUploadElement!} type={"file"} accept={"application/zip"}/>
-          <br/>
-          <button type={"submit"}>submit</button>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Upload Map File</label>
+            <input ref={fileUploadElement!} class="form-control" type="file" id="formFile" accept={"application/zip"}/>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
           <br/>
           <a class={styles.error}>{error()}</a>
         </form>
         {mapUploaded() &&
             <>
-              {maps().length>0 ?
+              {maps().length > 0 ?
                 <>
                   <h3>Select a Map</h3>
-                  <ul>
-                    <For each={maps()}>{(map) =>
-                      <li>
-                        <a onclick={() => {
-                          setCurrentMap(map)
-                        }
-                        }>
-                          {map.name}
-                        </a>
-                      </li>
-                    }</For>
-                  </ul>
+                  <div class="card" style="width: 18rem;">
+                    <ul class="list-group list-group-flush">
+                      <For each={maps()}>{(map) =>
+                        <li class={"list-group-item"}>
+                          <a onclick={() => {
+                            setCurrentMap(map)
+                          }
+                          }>
+                            {map.name}
+                          </a>
+                        </li>
+                      }</For>
+                    </ul>
+                  </div>
                 </> :
                 <>
                   <h3>No Maps found in this Archive</h3>

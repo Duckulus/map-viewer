@@ -12,7 +12,7 @@ export const Map: Component<{ map: UnzipFile }> = (props) => {
     setCurrentMap(parseRawNbt(gunzipFile(props.map)))
   })
 
-  return <div>
+  return <div class={"card"}>
     <ul>
       <li>Name: {props.map.name}</li>
       <li>Compression: {props.map.compression}</li>

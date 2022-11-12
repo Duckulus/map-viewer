@@ -48,6 +48,7 @@ export const gunzipFile = (map: UnzipFile) => {
   map.ondata = (err, data, final) => {
     if (err) {
       console.error(err)
+      return;
     }
     if (final) {
       map.terminate()
