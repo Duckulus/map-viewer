@@ -3,6 +3,6 @@ import styles from "./NavBar.module.css"
 
 export const NavBar: Component = () => {
   return <div class={styles.NavBar}>
-    <a href={"/"}>Home</a>
+    <a href={import.meta.env.BASE_URL}>Home</a>
   </div>
 }
