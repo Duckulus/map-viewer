@@ -44,7 +44,9 @@ const App: Component = () => {
       <div class={styles.border}>
         <form onSubmit={async e => await handleFileUpload(e)}>
           <input ref={fileUploadElement!} type={"file"} accept={"application/zip"}/>
+          <br/>
           <button type={"submit"}>submit</button>
+          <br/>
           <a class={styles.error}>{error()}</a>
         </form>
         <ul>

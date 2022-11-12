@@ -3,6 +3,6 @@ import styles from "./NavBar.module.css"
 
 export const NavBar: Component = () => {
   return <div class={styles.NavBar}>
-    Hello World
+    <a href={"/"}>Home</a>
   </div>
 }
