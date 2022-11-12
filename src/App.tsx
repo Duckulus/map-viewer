@@ -16,6 +16,8 @@ const App: Component = () => {
 
   const handleFileUpload = async (e: Event) => {
     e.preventDefault()
+    setError("")
+    setCurrentMap(undefined)
     const file = fileUploadElement.files![0] ?? null
     if (!file) {
       setError("Upload a file")
