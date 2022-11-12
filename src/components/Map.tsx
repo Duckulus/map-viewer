@@ -1,53 +1,16 @@
 import {Component, createEffect, createSignal} from "solid-js";
-import {Gunzip, UnzipFile} from "fflate";
-import * as nbt from "nbt"
+import {UnzipFile} from "fflate";
 import {drawPixelToImageData} from "../utils/canvasUtils";
 import {mapColors} from "../utils/colors";
+import {gunzipFile, MapType, parseRawNbt} from "../utils/zipUtils";
 
-type Map = {
-  dataVersion: number,
-  dimention: string,
-  colors: number[]
-}
-
-const parseRawNbt = (rawNbt: any): Map => {
-  const object = rawNbt.value
-  return {
-    dataVersion: object.DataVersion.value,
-    dimention: object.data.value.dimension.value,
-    colors: object.data.value.colors.value
-  }
-}
 
 export const Map: Component<{ map: UnzipFile }> = (props) => {
-  const [currentMap, setCurrentMap] = createSignal<Map>()
+  const [currentMap, setCurrentMap] = createSignal<MapType>()
 
   createEffect(() => {
-    const gzip = new Gunzip()
-    gzip.ondata = (data) => {
-      if (data) {
-        const nbtCompound = nbt.parseUncompressed(data.buffer)
-        setCurrentMap(parseRawNbt(nbtCompound))
-      }
-    }
-
-    props.map.ondata = (err, data, final) => {
-      if (err) {
-        console.error(err)
-      }
-      if (final) {
-        props.map.terminate()
-        return
-      }
-      if (data && !final) {
-        gzip.push(data, true)
-      }
-
-    }
-
-    props.map.start()
+    setCurrentMap(parseRawNbt(gunzipFile(props.map)))
   })
-
 
   return <div>
     <ul>
@@ -61,7 +24,7 @@ export const Map: Component<{ map: UnzipFile }> = (props) => {
   </div>
 }
 
-const MapCanvas: Component<{ map: Map }> = (props) => {
+const MapCanvas: Component<{ map: MapType }> = (props) => {
   let canvas: HTMLCanvasElement
 
   createEffect(() => {
@@ -71,11 +34,11 @@ const MapCanvas: Component<{ map: Map }> = (props) => {
     for (let i = 0; i < 128; i++) {
       for (let j = 0; j < 128; j++) {
         let color = mapColors[props.map.colors[i + j * 128] - 4]
-        if(color) {
+        if (color) {
           const {r, g, b} = color
-          drawPixelToImageData(imageData, i, j, 128, r, g, b,false)
+          drawPixelToImageData(imageData, i, j, 128, r, g, b, false)
         } else {
-          drawPixelToImageData(imageData, i, j, 128, 0,0,0,true)
+          drawPixelToImageData(imageData, i, j, 128, 0, 0, 0, true)
         }
 
       }

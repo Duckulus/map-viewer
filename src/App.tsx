@@ -1,10 +1,11 @@
 import type {Component} from 'solid-js';
 import {createSignal, For} from "solid-js";
-import {AsyncUnzipInflate, Unzip, UnzipFile} from "fflate"
+import {UnzipFile} from "fflate"
 import styles from './App.module.css';
 import {NavBar} from "./components/NavBar/NavBar";
 import {isMapFile} from "./utils/mapExpression";
 import {Map} from "./components/Map";
+import {extractFiles} from "./utils/zipUtils";
 
 
 const App: Component = () => {
@@ -24,14 +25,6 @@ const App: Component = () => {
       return
     }
 
-    const reader = new Unzip()
-    reader.register(AsyncUnzipInflate)
-
-    const files: Array<UnzipFile> = [];
-
-    reader.onfile = (f) => {
-      files.push(f)
-    }
 
     if (!file.stream) {
       setError(
@@ -40,18 +33,7 @@ const App: Component = () => {
       return;
     }
 
-    const fileReader = file.stream().getReader()
-
-    while (true) {
-      const {done, value} = await fileReader.read();
-      if (done) {
-        reader.push(new Uint8Array(0), true);
-        break;
-      }
-      for (let i = 0; i < value.length; i += 65536) {
-        reader.push(value.subarray(i, i + 65536));
-      }
-    }
+    const files = await extractFiles(file)
 
     setMaps(files.filter(f => isMapFile(f.name)))
   }
