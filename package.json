@@ -1,6 +1,7 @@
 {
   "name": "vite-template-solid",
   "version": "0.0.0",
+  "homepage": "https://duckulus.github.io/map-viewer/",
   "description": "",
   "scripts": {
     "start": "vite",
