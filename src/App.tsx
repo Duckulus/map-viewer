@@ -12,10 +12,11 @@ const App: Component = () => {
   const [error, setError] = createSignal("")
   const [maps, setMaps] = createSignal<UnzipFile[]>([])
   const [currentMap, setCurrentMap] = createSignal<UnzipFile>()
+  let fileUploadElement: HTMLInputElement
 
   const handleFileUpload = async (e: Event) => {
     e.preventDefault()
-    const file = (document.getElementById("fileUpload") as HTMLInputElement).files![0] ?? null
+    const file = fileUploadElement.files![0] ?? null
     if (!file) {
       setError("Upload a file")
       return
@@ -58,7 +59,7 @@ const App: Component = () => {
       <NavBar/>
       <div class={styles.border}>
         <form onSubmit={async e => await handleFileUpload(e)}>
-          <input id={"fileUpload"} type={"file"} accept={"application/zip"}/>
+          <input ref={fileUploadElement!} type={"file"} accept={"application/zip"}/>
           <button type={"submit"}>submit</button>
           <a class={styles.error}>{error()}</a>
         </form>
