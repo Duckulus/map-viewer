@@ -36,7 +36,7 @@ jobs:
           pnpm i
           pnpm build
         env:
-          VITE_BASE_PATH: ${{ secrets.BASE_PATH }}
+          VITE_BASE_URL: ${{ secrets.BASE_PATH }}
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.3
