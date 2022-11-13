@@ -37,6 +37,7 @@ const App: Component = () => {
     const files = await extractFiles(file)
     setMapUploaded(true)
     setMaps(files.filter(f => isMapFile(f.name)))
+    if(maps().length==0) setError("No Map found in this File")
   }
 
   return (
@@ -71,11 +72,7 @@ const App: Component = () => {
                       }</For>
                     </ul>
                   </div>
-                </> :
-                <>
-                  <h3>No Maps found in this Archive</h3>
-                </>
-
+                </> : <></>
               }
             </>
         }
